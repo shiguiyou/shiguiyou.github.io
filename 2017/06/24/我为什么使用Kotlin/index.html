@@ -1,0 +1,771 @@
+<!DOCTYPE html>
+
+
+
+
+<html class="theme-next pisces" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=6.0.0" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.0.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.0.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.0.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.0.0" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="查无此人">
+<meta property="og:type" content="website">
+<meta property="og:title" content="关于我">
+<meta property="og:url" content="http://yoursite.com/about/index.html">
+<meta property="og:site_name" content="小友的博客">
+<meta property="og:description" content="查无此人">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-01-08T05:53:08.458Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="关于我">
+<meta name="twitter:description" content="查无此人">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '6.0.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/about/"/>
+
+
+
+
+
+  <title>我为什么使用Kotlin | 小友的博客</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"> <div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">小友的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">何以解忧，唯有暴富</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+
+            
+              首页
+            
+
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+
+            
+              归档
+            
+
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+
+            
+              标签
+            
+
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+
+            
+              关于我
+            
+
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/06/24/我为什么使用Kotlin/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="爵小友">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="小友的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">我为什么使用Kotlin</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-06-24T09:38:29+08:00">2017-06-24</time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<p>九旬老太为何裸死街头？数百头母驴为何半夜惨叫？小卖部安全套为何屡遭黑手？女生宿舍内裤为何频频失窃？连环强J母猪案，究竟是何人所为？老尼姑的门夜夜被敲，究竟是人是鬼？数百只小母狗意外身亡的背后又隐藏着什么？这一切的背后，是人性的扭曲还是道德的沦丧？是性的爆发还是饥渴的无奈？敬请关注CCTV12法制频道年度巨献《我为什么使用Kotlin》，让我们跟随着镜头走进楼主的内心世界……</p>
+</blockquote>
+<p>看到这个标题你是不是以为是哪个国内外大佬的文章，很遗憾，并不是，但是，请给我一个机会，我相信你看完，肯定会说，写的什么<code>reader==&quot;男&quot;? JB : **</code>玩意…刺不刺激？</p>
+<p>由于公司就我一个Android开发，所以想用什么技术，直接在项目里面搞，这也是最大的好处。这里主要将自己使用Kotlin感觉爽的地方对比Java，拿出来跟大家同爽一下。惊不惊喜？</p>
+<a id="more"></a>
+<h1 id="分号"><a href="#分号" class="headerlink" title="分号"></a>分号</h1><p>自从使用了kotlin，就再也不用每行后面加上<code>;</code>了，少敲了N个<code>;</code>后，腰也不疼了，腿也不酸了，一口气能爬六楼了！回车键也能自信、用力、毫不犹豫地敲下去了。</p>
+<h1 id="字符串模版"><a href="#字符串模版" class="headerlink" title="字符串模版"></a>字符串模版</h1><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//Java</span></span><br><span class="line">int i=<span class="number">3</span>;</span><br><span class="line">Log.i(<span class="string">"MainActivity"</span>,<span class="string">"第"</span>+i+<span class="string">"次请求失败"</span>+e.getMessage());</span><br><span class="line"></span><br><span class="line"><span class="comment">//Kotlin</span></span><br><span class="line"><span class="keyword">val</span> i=<span class="number">3</span></span><br><span class="line">Log.i(<span class="string">"MainActivity"</span>,<span class="string">"第<span class="variable">$i</span>次请求失败 <span class="subst">$&#123;e.message&#125;</span>"</span>)</span><br></pre></td></tr></table></figure>
+<p>用了这个确实省了不少事。在kotlin中<code>val i=3</code>能自动推断出i为Int类型。</p>
+<h1 id="数据类"><a href="#数据类" class="headerlink" title="数据类"></a>数据类</h1><p>在Java中我们经常定义一些Java bean:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">User</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">  String name;</span><br><span class="line">  String age;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> String <span class="title">getName</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> name;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setName</span><span class="params">(String name)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.name = name;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> String <span class="title">getAge</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> age;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setAge</span><span class="params">(String age)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.age = age;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@Override</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> String <span class="title">toString</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">"name:"</span> + name + <span class="string">"|age:"</span> + age;</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>但是在Kotlin中，你甚至只要一句话就行了：</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">data</span> <span class="class"><span class="keyword">class</span> <span class="title">User</span></span>(<span class="keyword">val</span> name: String, <span class="keyword">val</span> age: <span class="built_in">Int</span>)</span><br></pre></td></tr></table></figure>
+<p>效果跟上面Java的一模一样，同样具有getter和setter,toString方法。</p>
+<h1 id="扩展函数"><a href="#扩展函数" class="headerlink" title="扩展函数"></a>扩展函数</h1><p>这个不得了，还记得这段熟悉的代码吗：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> ViewHolder <span class="title">onCreateViewHolder</span><span class="params">(ViewGroup parent, <span class="keyword">int</span> viewType)</span> </span>&#123;</span><br><span class="line">    View view= LayoutInflater.from(parent.getContext()).inflate(R.layout.item_file_folder,parent,<span class="keyword">false</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> FileVH(view);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>但是在kotlin中可以给ViewGroup这个类添加一个inflate方法：</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fun</span> ViewGroup.<span class="title">inflate</span><span class="params">(layoutRes: <span class="type">Int</span>)</span></span>: View &#123;</span><br><span class="line">	<span class="keyword">return</span> LayoutInflater.from(context).inflate(layoutRes, <span class="keyword">this</span>, <span class="literal">false</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>那么以后你就可以在任何一个ViewGroup类上面使用该方法：</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onCreateViewHolder</span><span class="params">(parent: <span class="type">ViewGroup</span>, viewType: <span class="type">Int</span>)</span></span>: FileVH &#123;</span><br><span class="line">	<span class="keyword">return</span> FileVH(parent.inflate(R.layout.item_file_folder))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>kotlin中方法定义格式大致如此：</p>
+<p><code>fun 方法名（参数：参数类型）：返回类型 { }</code></p>
+<p>就是说以后每次在<code>onCreateViewHolder</code>方法里面都可以这么写，省了很多事有没有！除此之外还可以定义这样的扩展函数，比如给Context类加一个toast()方法，这样就可以在有context的地方(Activity,Fragment)直接调用toast:</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fun</span> Context.<span class="title">toast</span><span class="params">(msg: <span class="type">String</span>, length: <span class="type">Int</span> = Toast.LENGTH_SHORT)</span></span> &#123;</span><br><span class="line">    Toast.makeText(<span class="keyword">this</span>, msg, length).show()  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这里方法里面的<code>length: Int = Toast.LENGTH_SHORT</code>参数，我们默认给它Toast.LENGTH_SHORT初始值，就可以在调用toast的时候把第二个参数省略掉，有点重载的意思哦？</p>
+<p>还有就是<a href="https://github.com/bumptech/glide" target="_blank" rel="noopener">Glide</a>图片加载库，相信很多人都用到过:</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//Java</span></span><br><span class="line">Glide.with(context).load(file).into(<span class="keyword">this</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">//kotlin </span></span><br><span class="line"><span class="comment">//先定义一个扩展函数，就是给ImageView添加一个loadImg方法</span></span><br><span class="line"><span class="function"><span class="keyword">fun</span> ImageView.<span class="title">loadImg</span><span class="params">(url: <span class="type">String</span>)</span></span> &#123;</span><br><span class="line">    Glide.with(context).load(file).into(<span class="keyword">this</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//然后在任何有ImageView的地方直接</span></span><br><span class="line">imageView.loadImg(url)</span><br></pre></td></tr></table></figure>
+<p>感觉这种扩展函数有点像定义了一个工具类。</p>
+<h1 id="绑定视图"><a href="#绑定视图" class="headerlink" title="绑定视图"></a>绑定视图</h1><p>首先感谢<a href="https://github.com/JakeWharton" target="_blank" rel="noopener">Jake Wharton</a>大神的<a href="https://github.com/JakeWharton/butterknife" target="_blank" rel="noopener">Butterknife</a>把我们从<code>findViewById</code>中解救出来，然后我们的代码就变成这样了：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@BindView</span>(R.id.tv_add_new_field)</span><br><span class="line">TextView tvAddNewField;</span><br><span class="line"></span><br><span class="line"><span class="meta">@BindView</span>(R.id.iv_random)</span><br><span class="line">ImageView ivRandom;</span><br><span class="line"></span><br><span class="line"><span class="meta">@BindView</span>(R.id.tv_select_type)</span><br><span class="line">TextView tvSelectType;</span><br><span class="line"></span><br><span class="line"><span class="meta">@BindView</span>(R.id.medt_item_title)</span><br><span class="line">MaterialEditText medtItemTitle;</span><br><span class="line"></span><br><span class="line"><span class="meta">@BindView</span>(R.id.medt_item_account)</span><br><span class="line">MaterialAutoCompleteTextView medtItemAccount;</span><br><span class="line">......</span><br></pre></td></tr></table></figure>
+<p>但是遇到kotlin后，你只要在代码最上面import里面加上一句话：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">import kotlinx.android.synthetic.main.activity_add.*</span><br></pre></td></tr></table></figure>
+<p>这样就把R.layout.activity_add里面的view全部加载进来了，使用的时候直接拿view的id：</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tv_add_new_field.text=<span class="string">"添加新字段"</span></span><br></pre></td></tr></table></figure>
+<p>上面的写法是在Activity里面直接使用的，在RecyclerView或者基于其他view中获取视图有点区别，可以看文末中我自己写的项目代码。</p>
+<h1 id="单表达式函数（一行代码）"><a href="#单表达式函数（一行代码）" class="headerlink" title="单表达式函数（一行代码）"></a>单表达式函数（一行代码）</h1><p>Kotlin允许只有一行的代码可以不用大括号包着，直接接在方法后面等于号。如果有返回值，并且可以从一句中推断出来，就可以省略返回值。不仅能够简化代码，还完美符合我的<em>仙女</em>（处女座）气质。</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//Java</span></span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="keyword">public</span> int getItemCount() &#123;</span><br><span class="line">  <span class="keyword">return</span> mFiles == <span class="literal">null</span> ? <span class="number">0</span> : mFile.size;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//Kotlin</span></span><br><span class="line"><span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">getItemCount</span><span class="params">()</span></span>=mFiles?.size ?: <span class="number">0</span></span><br></pre></td></tr></table></figure>
+<p>上面的<code>mFiles?.size ?: 0</code>表示返回mFile的size，如果mFile为空，就返回0</p>
+<p>另外，Kotlin的<a href="https://github.com/JetBrains/kotlin/blob/master/libraries/stdlib/src/kotlin/util/Standard.kt" target="_blank" rel="noopener">Standard.kt</a>提供了一些有用的方法比如apply,with,run…方法体大部分只有一行，有没有很厉害的样子。具体可以参考这篇文章：<a href="http://beust.com/weblog/2015/10/30/exploring-the-kotlin-standard-library/" target="_blank" rel="noopener">Exploring the Kotlin standard library</a></p>
+<h1 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h1><p>除了我上面提到的，Kotlin还有很多很多好处，比如空安全，支持Lambda,高阶函数…有的我还没用到，慢慢学习中，这里我只是抛一块玉出来，引大家的砖。其实促使我使用该kotlin的很大的一个原因就是与Java的互操作(Interoperable)，而且互不影响，你可以现在在你代码里面加一个kotlin的Activity完全可以继承你的java BaseActivity或者implement任何接口，没有影响。So why not try a try?</p>
+<p>对于我来说，最好的学习资源就是<a href="http://www.kotlincn.net/docs/reference/" target="_blank" rel="noopener">Kotlin中文站</a>，首先将所有内容大概看一遍，有个印象，然后用到的时候来看看就好了，多用几次熟能生巧，感谢翻译的作者。当然，结合别人的代码来看效果更好。（我曾经自信地以为自己在<a href="https://medium.com/" target="_blank" rel="noopener">Medium</a>上能看懂一些文章，<a href="https://kotlinlang.org/docs/reference/" target="_blank" rel="noopener">kotlin英文文档</a>没什么大不了，但是看了一会除了一脸懵逼还是一脸懵逼，太年轻啊！好多专业术语都不懂！）</p>
+<h1 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h1><p>当然，除了那么多的优点，肯定有一些需要注意的问题。</p>
+<h2 id="版本控制（Git）"><a href="#版本控制（Git）" class="headerlink" title="版本控制（Git）"></a>版本控制（Git）</h2><p>当你的java文件转化为kt文件的时候，git默认java文件的删除，kt文件的新加，所以会丢失以前的版本控制记录，理论上通过history还是可以找回的，还是有点麻烦。</p>
+<h1 id="The-End"><a href="#The-End" class="headerlink" title="The End"></a>The End</h1><p>大概随便就写了些个人觉得kotlin比较好的地方，初学者，还有很多需要学习的地方，各位爷不要笑话，有问题欢迎提出，共同进步！另外附上自己的App<a href="https://github.com/shiguiyou/RememberPassword" target="_blank" rel="noopener">记住密码</a>，大部分已用kotlin改写，各位可以看看，希望您小手一点，给个star，我怕三十晚上的祝福太多，在这提前给您拜年了。</p>
+<p>顺便问一句，有没有公司要招人的，就是那种会写kotlin，精通各种RxJava,MVP,Retrofit,Dagger2等的Hello World以及胸口碎大石，脚踩电灯泡等绝技的…要是没有的话，我过几天再来问一下…</p>
+<p>不说了，床上的女朋友气快漏光了，我要赶紧充气去…</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Android/" rel="tag"># Android</a>
+          
+            <a href="/tags/Kotlin/" rel="tag"># Kotlin</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/03/17/Android-Studio一些常用配置/" rel="next" title="我的Android Studio一些配置">
+                <i class="fa fa-chevron-left"></i> 我的Android Studio一些配置
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/08/01/用Kotlin中的Anko简化Android开发/" rel="prev" title="用Kotlin中的Anko简化Android开发">
+                用Kotlin中的Anko简化Android开发 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/uploads/avatar.jpeg"
+                alt="爵小友" />
+            
+              <p class="site-author-name" itemprop="name">爵小友</p>
+              <p class="site-description motion-element" itemprop="description">Android Java</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">13</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    <span class="site-state-item-count">7</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/shiguiyou" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="http://weibo.com/shiguiyou" target="_blank" title="微博">
+                      
+                        <i class="fa fa-fw fa-weibo"></i>微博</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#分号"><span class="nav-number">1.</span> <span class="nav-text">分号</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#字符串模版"><span class="nav-number">2.</span> <span class="nav-text">字符串模版</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#数据类"><span class="nav-number">3.</span> <span class="nav-text">数据类</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#扩展函数"><span class="nav-number">4.</span> <span class="nav-text">扩展函数</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#绑定视图"><span class="nav-number">5.</span> <span class="nav-text">绑定视图</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#单表达式函数（一行代码）"><span class="nav-number">6.</span> <span class="nav-text">单表达式函数（一行代码）</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#其他"><span class="nav-number">7.</span> <span class="nav-text">其他</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#缺点"><span class="nav-number">8.</span> <span class="nav-text">缺点</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#版本控制（Git）"><span class="nav-number">8.1.</span> <span class="nav-text">版本控制（Git）</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#The-End"><span class="nav-number">9.</span> <span class="nav-text">The End</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">爵小友</span>
+
+  
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/theme-next/hexo-theme-next">NexT.Pisces</a> v6.0.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.0.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.0.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=6.0.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=6.0.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.0.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.0.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.0.0"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

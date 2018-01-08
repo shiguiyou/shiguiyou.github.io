@@ -1,0 +1,788 @@
+<!DOCTYPE html>
+
+
+
+
+<html class="theme-next pisces" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=6.0.0" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.0.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.0.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.0.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.0.0" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="查无此人">
+<meta property="og:type" content="website">
+<meta property="og:title" content="关于我">
+<meta property="og:url" content="http://yoursite.com/about/index.html">
+<meta property="og:site_name" content="小友的博客">
+<meta property="og:description" content="查无此人">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-01-08T05:53:08.458Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="关于我">
+<meta name="twitter:description" content="查无此人">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '6.0.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/about/"/>
+
+
+
+
+
+  <title>Android内存溢出到性能优化 | 小友的博客</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"> <div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">小友的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">何以解忧，唯有暴富</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+
+            
+              首页
+            
+
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+
+            
+              归档
+            
+
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+
+            
+              标签
+            
+
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+
+            
+              关于我
+            
+
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/08/21/Android内存溢出到性能优化/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="爵小友">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="小友的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Android内存溢出到性能优化</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-08-21T15:49:34+08:00">2017-08-21</time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>写这个一方面当作对自己的知识点的查缺补漏，一方面也权当是学习笔记吧，以前也没想过系统地去了解这些。</p>
+<p>从Java的内存分配机制，关于堆栈的理解，到内存泄漏，就是该释放的对象没有被释放，一直被某个或某些实例所持有却不再被使用导致 GC 不能回收，长时间下去，程序的内存大于系统分配的内存，就会导致内存的溢出（OOM:Out Of Memory），因此，就需要优化。<br><a id="more"></a></p>
+<h2 id="内存分配"><a href="#内存分配" class="headerlink" title="内存分配"></a>内存分配</h2><p>先简单了解下Java程序内存分配：</p>
+<ul>
+<li>静态分配-&gt;静态存储区、方法区（主要存放static等常量静态数据）</li>
+<li>栈式分配-&gt;栈区（局部变量，容量有限的高速处理器执行，方法结束自动释放）</li>
+<li>堆式分配-&gt;堆区（动态内存分配，一般指new出来的对象实例，由gc回收）</li>
+</ul>
+<p>另外栈中可以定义一个变量，变量的取值可以等于堆中的数组或者对象的地址，这个变量就是引用变量。局部变量的基本数据类型和引用存储于栈中，引用的对象实体存储于堆中。成员变量全部存储与堆中（包括基本数据类型，引用和引用的对象实体），因为它们属于类，类对象终究是要被new出来使用的。</p>
+<p>对于Android，ActivityManager的getMemoryClass()的方法可以得到Dalvik Heap的阈值；最常用的一个缓存算法是LRU(Least Recently Use)，即优先干掉最少使用的程序。</p>
+<h2 id="内存泄漏"><a href="#内存泄漏" class="headerlink" title="内存泄漏"></a>内存泄漏</h2><p>内存泄漏:该被释放的对象没有释放，一直被某个或某些实例所持有却不再被使用导致 GC 不能回收。比如静态集合类保存的东西，如果不用了，需要及时删除掉，否则会一直持有，删除的对象如果进行过修改，有可能删除失败，这点需要注意下。</p>
+<h3 id="Activity泄漏"><a href="#Activity泄漏" class="headerlink" title="Activity泄漏"></a>Activity泄漏</h3><p>如果你持有一个未使用的 Activity 的引用，其实也就持有了 Activity 的布局，自然也就包含了所有的 View，所以这个泄漏其实挺大的有没有？比如静态变量持有对当前Activity的引用，因为其生命周期不一样很容易导致当前的Activity其实我们不用了，但是还存在于内存中。跟Activity相关的内存泄漏大致：</p>
+<ul>
+<li>监听器没有及时释放</li>
+<li>数据库没有及时关闭</li>
+<li>匿名内部类/非静态内部类，持有对外部类（一般是Activity）的引用。如果有生命周期不一样的异步线程，那就要小心了，比如Handler。</li>
+<li>单例模式一般都是持续于整个生命周期的，那么持有外部的引用也会造成内存泄漏</li>
+<li>尽量避免使用 static 成员变量，因为static是与程序的生命周期一样的，一般持有的引用也会造成内存泄漏</li>
+</ul>
+<h2 id="性能优化"><a href="#性能优化" class="headerlink" title="性能优化"></a>性能优化</h2><p>性能优化的目的就是为了不让内存溢出导致闪退。</p>
+<p>在Android应用的开发中，为了防止内存溢出，在处理一些占用内存大而且声明周期较长的对象时候，可以尽量应用软引用和弱引用技术。</p>
+<p><img src="https://camo.githubusercontent.com/068950c506eddc68677d6a84b5d7ffe1c03c6cf9/68747470733a2f2f67772e616c6963646e2e636f6d2f7470732f5442315536544e4c565858585863685846585858585858585858582d3634342d3534362e6a7067" alt="reference"></p>
+<p>比如静态Handler必须持有Activity的时候，我们需要将Activity设为软引用或者弱引用，这样在gc执行的时候或者内存不足的时候会自动回收掉这些引用。</p>
+<h3 id="减小对象的内存占用"><a href="#减小对象的内存占用" class="headerlink" title="减小对象的内存占用"></a>减小对象的内存占用</h3><ul>
+<li>使用更加轻量的数据结构，SparseArray替代HashMap。因为使用HashMap时，即使你只设置了一个基本数据类型的键，比如说int，但是也会按照对象的大小来分配内存，大概是32字节，而不是4字节，因此最好使用优化后的数据集合</li>
+<li>基本数据类型来代替封装数据类型，int比Integer要更加有效</li>
+<li>任何一个Java类，包括匿名类、内部类，都要占用大概500字节的内存空间,任何一个类的实例要消耗12-16字节的内存开支，因此频繁创建实例也是会在一定程序上影响内存的。比如自定义View的onDraw方法，会频繁的执行，所以最好不要在里面过多的创建实例</li>
+<li>避免在Android里面使用Enum，枚举通常会比使用静态常量消耗两倍以上的内存，尽可能不使用枚举</li>
+<li>减小Bitmap对象的内存占用</li>
+<li>使用更小的图片，比如xml中加载的图片可以经过压缩，Android Studio自带webp格式的转换</li>
+</ul>
+<h3 id="内存对象的重复利用"><a href="#内存对象的重复利用" class="headerlink" title="内存对象的重复利用"></a>内存对象的重复利用</h3><ul>
+<li>复用系统自带的资源</li>
+<li>Bitmap对象的复用</li>
+<li>避免在onDraw方法里面执行对象的创建</li>
+<li>StringBuilder</li>
+<li>注意在ListView/GridView等出现大量重复子组件的视图里对ConvertView的复用，现在基本使用RecyclerView了</li>
+</ul>
+<h3 id="避免对象的内存泄露"><a href="#避免对象的内存泄露" class="headerlink" title="避免对象的内存泄露"></a>避免对象的内存泄露</h3><ul>
+<li>注意Activity的泄漏，比如Handler内部类会持有外部类的一个引用</li>
+<li>考虑使用Application Context而不是Activity Context</li>
+<li>注意临时Bitmap对象的及时回收</li>
+<li>注意监听器的注销、Cursor对象是否及时关闭</li>
+<li>注意缓存容器中的对象泄漏</li>
+</ul>
+<h3 id="内存使用策略优化"><a href="#内存使用策略优化" class="headerlink" title="内存使用策略优化"></a>内存使用策略优化</h3><ul>
+<li>当界面不可见的时候适当的释放内存，重写Activity的onTrimMemory()方法，然后在这个方法中监听TRIM_MEMORY_UI_HIDDEN这个级别，一旦触发说明用户离开了程序，此时就可以进行资源释放操作了。</li>
+<li>当内存紧张时释放内存 onTrimMemory()方法还有很多种其他类型的回调，可以在手机内存降低的时候及时通知我们，我们应该根据回调中传入的级别来去决定如何释放应用程序的资源。</li>
+<li>资源文件需要选择合适的文件夹进行存放,比如不希望拉伸的图片放在nodpi文件夹中</li>
+<li>谨慎使用static对象。static final和static的区别，仅static是需要方法运行的，而加上final是直接使用的</li>
+<li>特别留意单例对象中不合理的持有，生命周期不一致的问题</li>
+<li>珍惜Services资源</li>
+<li>优化布局层次，重用，需要时加载ViewStub，减少内存消耗</li>
+<li>谨慎使用“抽象”编程，在Android使用抽象编程会带来额外的内存开支，因为抽象的编程方法需要编写额外的代码，虽然这些代码根本执行不到，但是也要映射到内存中，不仅占用了更多的内存，在执行效率上也会有所降低。所以需要合理的使用抽象编程。</li>
+<li>谨慎使用依赖注入框架，因为会加载一些你不需要的东西，很久才会释放</li>
+<li>谨慎使用多进程</li>
+<li>使用ProGuard来剔除不需要的代码</li>
+<li>谨慎使用第三方libraries</li>
+<li>考虑不同的实现方式来优化内存占用</li>
+</ul>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="http://www.csdn.net/article/2015-09-18/2825737/1" target="_blank" rel="noopener">Android内存优化之OOM</a></p>
+<p><a href="https://academy.realm.io/cn/posts/droidcon-farber-improving-android-app-performance/" target="_blank" rel="noopener">10条提升Android性能的建议</a></p>
+<p><a href="https://www.diycode.cc/wiki/androidinterview" target="_blank" rel="noopener">Android 开发工程师面试指南</a></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Java/" rel="tag"># Java</a>
+          
+            <a href="/tags/Android/" rel="tag"># Android</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/08/01/用Kotlin中的Anko简化Android开发/" rel="next" title="用Kotlin中的Anko简化Android开发">
+                <i class="fa fa-chevron-left"></i> 用Kotlin中的Anko简化Android开发
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/08/22/读源码之ArrayList/" rel="prev" title="读源码之ArrayList">
+                读源码之ArrayList <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/uploads/avatar.jpeg"
+                alt="爵小友" />
+            
+              <p class="site-author-name" itemprop="name">爵小友</p>
+              <p class="site-description motion-element" itemprop="description">Android Java</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">13</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    <span class="site-state-item-count">7</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/shiguiyou" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="http://weibo.com/shiguiyou" target="_blank" title="微博">
+                      
+                        <i class="fa fa-fw fa-weibo"></i>微博</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#内存分配"><span class="nav-number">1.</span> <span class="nav-text">内存分配</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#内存泄漏"><span class="nav-number">2.</span> <span class="nav-text">内存泄漏</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Activity泄漏"><span class="nav-number">2.1.</span> <span class="nav-text">Activity泄漏</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#性能优化"><span class="nav-number">3.</span> <span class="nav-text">性能优化</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#减小对象的内存占用"><span class="nav-number">3.1.</span> <span class="nav-text">减小对象的内存占用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#内存对象的重复利用"><span class="nav-number">3.2.</span> <span class="nav-text">内存对象的重复利用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#避免对象的内存泄露"><span class="nav-number">3.3.</span> <span class="nav-text">避免对象的内存泄露</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#内存使用策略优化"><span class="nav-number">3.4.</span> <span class="nav-text">内存使用策略优化</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考"><span class="nav-number">4.</span> <span class="nav-text">参考</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">爵小友</span>
+
+  
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/theme-next/hexo-theme-next">NexT.Pisces</a> v6.0.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.0.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.0.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=6.0.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=6.0.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.0.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.0.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.0.0"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

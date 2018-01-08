@@ -1,0 +1,719 @@
+<!DOCTYPE html>
+
+
+
+
+<html class="theme-next pisces" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=6.0.0" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.0.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.0.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.0.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.0.0" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="查无此人">
+<meta property="og:type" content="website">
+<meta property="og:title" content="关于我">
+<meta property="og:url" content="http://yoursite.com/about/index.html">
+<meta property="og:site_name" content="小友的博客">
+<meta property="og:description" content="查无此人">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-01-08T05:53:08.458Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="关于我">
+<meta name="twitter:description" content="查无此人">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '6.0.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/about/"/>
+
+
+
+
+
+  <title>利用Rxjava简单处理复杂请求 | 小友的博客</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"> <div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">小友的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">何以解忧，唯有暴富</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+
+            
+              首页
+            
+
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+
+            
+              归档
+            
+
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+
+            
+              标签
+            
+
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+
+            
+              关于我
+            
+
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/08/25/利用Rxjava简单处理复杂请求/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="爵小友">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="小友的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">利用Rxjava简单处理复杂请求</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-08-25T10:33:30+08:00">2017-08-25</time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>这是<a href="http://androidweekly.net/issues/issue-270" target="_blank" rel="noopener">Android Weekly</a>第270期推荐的一篇文章：<a href="https://blog.mindorks.com/how-to-make-complex-requests-simple-with-rxjava-in-kotlin-ccec004c5d10" target="_blank" rel="noopener">How to make complex requests simple with RxJava in Kotlin</a>，Kotlin写的，MVP+Dagger2+RxJava2+Retrofit2，现在的标配？黑人问号？？下载下来发现作者是用Android Studio 3.0写的，改build.gradle中的gradle版本也跑不起来，也不想下载beta版的AS，就想着自己试着写一个，顺便练习下。MVP和Dagger2其实挺烦人的，所以我就怎么简单怎么写，达到目的就行了，还是用的Kotlin写的（如果你说你不会kotlin，那么建议赶紧学学，说不定以后大牛的Demo都看不懂，多难过啊），下面分析。最后上代码，有兴趣的可以看看。</p>
+<a id="more"></a>
+<p>先看效果图</p>
+<p><img src="https://cdn-images-1.medium.com/max/1600/1*0IPv58VtEmvDwxXg28YOMw.gif" alt="screen"></p>
+<p>这个Demo主要用的StackOverflow的<a href="https://api.stackexchange.com/" target="_blank" rel="noopener">开放API</a>，就2个页面，第一个界面是请求了reputation最高的用户并展示，第二个页面是选择了该用户，展示其提的问题，给别人回答的答案，最喜欢的问题这三个部分，每个部分只显示3条。</p>
+<p>烦人的就是第二个页面了，该页面是由4个接口返回的值组成的，其中getQuestions和getFavorites可以直接获取到，但是getAnswers返回的是答案，我们还要通过答案中的question_id再去请求对应的问题来展示。</p>
+<p>一般的做法就是一个一个请求，再写个方法组成没问题，但是用RxJava中的flatmap和zip操作符能够更加轻松的完成。</p>
+<p>首先考虑用Single,对于Single，官网是这样解释的：</p>
+<blockquote>
+<p>A Single is something like an Observable, but instead of emitting a series of values — anywhere from none at all to an infinite number — it always either emits one value or an error notification.</p>
+</blockquote>
+<p>区别于Observable不同的是，Observable发出0～n个事件，而single只发出一个（事件）值：<em>成功的值</em>或者<em>失败的提示</em>，我们就关心这2样，相比较Observable的onNext,onComplete,onError稍微简单些。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">Single.zip(</span><br><span class="line">                ApiHelper.getService().getQuestionsByUser(mUserId),</span><br><span class="line">                getAnswers(),</span><br><span class="line">                ApiHelper.getService().getFavoritesByUser(mUserId),</span><br><span class="line">                Function3&lt;CommonResult&lt;Question&gt;, List&lt;Question&gt;, CommonResult&lt;Question&gt;, DetailModel&gt;</span><br><span class="line">                &#123; questionResult, answers, favoritesResult -&gt;</span><br><span class="line">                    val questions = questionResult.items.take(3)</span><br><span class="line">                    val favorites = favoritesResult.items.take(3)</span><br><span class="line">                    DetailModel(questions, answers, favorites)</span><br><span class="line">                &#125;</span><br><span class="line">        ).subscribeOn(Schedulers.io())</span><br><span class="line">                .observeOn(AndroidSchedulers.mainThread())</span><br><span class="line">                .subscribe(&#123;</span><br><span class="line">                    adapter.setData(it)</span><br><span class="line">                &#125;, &#123;</span><br><span class="line">                    it.printStackTrace()</span><br><span class="line">                    toast(&quot;请求错误：$&#123;it.message&#125;&quot;)</span><br><span class="line">                &#125;)</span><br></pre></td></tr></table></figure>
+<p>zip的作用是将前三个Single发射的东西整合成一个再发射出去，看Function3，比如上面是将Single<questions>,Single<answers>,Single<favorites>合成Single<detailmodel>返回，便于后续处理。</detailmodel></favorites></answers></questions></p>
+<p>getAnswers返回Single<list<question>&gt;，说到flatmap就想到和map的区别，map是将一个值转化为另一个值，但是flatmap是将一个值转化为一个新的Observable或者Single，再发出去，相当于解决嵌套的问题。下面有个注意点，用questionId去请求问题接口的话，如果把多个questionId放一起，用<code>;</code>隔开去请求就会得到一个多个问题的数组返回</list<question></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">private fun getAnswers(): Single&lt;List&lt;Question&gt;&gt; &#123;</span><br><span class="line">        return ApiHelper.getService()</span><br><span class="line">                .getAnswersByUser(mUserId)</span><br><span class="line">                .flatMap &#123;</span><br><span class="line">                    val processedAnswers = it.items</span><br><span class="line">                            .filter &#123; it.accept &#125;</span><br><span class="line">                            .take(3)</span><br><span class="line"></span><br><span class="line">                    val ids = processedAnswers</span><br><span class="line">                            .map &#123; it.questionId.toString() &#125;</span><br><span class="line">                            .joinToString(separator = &quot;;&quot;)</span><br><span class="line"></span><br><span class="line">                    ApiHelper.getService()</span><br><span class="line">                            .getQuestionById(ids)</span><br><span class="line">                            .map &#123; it.items &#125;</span><br><span class="line">                &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>最后上自己写的代码地址：<a href="https://github.com/shiguiyou/Android-Kotlin-Examples/tree/stackexchange" target="_blank" rel="noopener">GitHub Repository</a>，主要核心还是上面的zip和flatmap的使用。代码写的还有很多不足的地方，欢迎提出。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Android/" rel="tag"># Android</a>
+          
+            <a href="/tags/RxJava/" rel="tag"># RxJava</a>
+          
+            <a href="/tags/Kotlin/" rel="tag"># Kotlin</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/08/22/读源码之ArrayList/" rel="next" title="读源码之ArrayList">
+                <i class="fa fa-chevron-left"></i> 读源码之ArrayList
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/09/11/设计模式相关/" rel="prev" title="设计模式">
+                设计模式 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/uploads/avatar.jpeg"
+                alt="爵小友" />
+            
+              <p class="site-author-name" itemprop="name">爵小友</p>
+              <p class="site-description motion-element" itemprop="description">Android Java</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">13</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    <span class="site-state-item-count">7</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/shiguiyou" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="http://weibo.com/shiguiyou" target="_blank" title="微博">
+                      
+                        <i class="fa fa-fw fa-weibo"></i>微博</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">爵小友</span>
+
+  
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/theme-next/hexo-theme-next">NexT.Pisces</a> v6.0.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.0.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.0.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=6.0.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=6.0.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.0.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.0.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.0.0"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
