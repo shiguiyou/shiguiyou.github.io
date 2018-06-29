@@ -121,7 +121,7 @@
 
 
 
-  <title>记住密码帮助文档 | 小友的博客</title>
+  <title>使用@IntDef和@StringDef代替Java枚举 | 小友的博客</title>
   
 
 
@@ -266,7 +266,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/11/11/help-rp/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/12/13/defUse/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="爵小友">
@@ -283,7 +283,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">记住密码帮助文档</h1>
+          <h1 class="post-title" itemprop="name headline">使用@IntDef和@StringDef代替Java枚举</h1>
         
 
         <div class="post-meta">
@@ -295,7 +295,7 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-11-11T11:11:11+08:00">2016-11-11</time>
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-13T12:36:05+08:00">2017-12-13</time>
             
 
             
@@ -331,27 +331,37 @@
       
 
       
-        <blockquote class="blockquote-center"><p> Absolute security does not exist. Security is a set of measures, being piled up and combined, trying to slow down the inevitable.</p>
-<p>没有绝对的安全。所谓的安全是指利用一系列措施的堆积和组合，来试图延缓必然发生的事情。 </p>
+        <p>最近看别人的代码，发现别人使用了@IntDef的注解，便上网搜了一圈记录下来。</p>
+<h1 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h1><p>Google文档是这样说的</p>
+<blockquote>
+<p>Use the @IntDef and @StringDef annotations so you can create enumerated annotations of integer and string sets to validate other types of code references. Typedef annotations ensure that a particular parameter, return value, or field references a specific set of constants. They also enable code completion to automatically offer the allowed constants.</p>
 </blockquote>
-<h1 id="关于安全"><a href="#关于安全" class="headerlink" title="关于安全"></a>关于安全</h1><blockquote>
-<p>该软件不保证绝对安全，请勿存储金钱等重要相关信息。</p>
-</blockquote>
-<p>该软件只有一个重要权限：<strong>读写文件</strong>，其他没有任何与外界操作的权限（联网、发短信等）。该网页内容是从外部浏览器打开，而非app具有网络权限。</p>
-<p>该软件使用的数据库非Android系统自带的Sqlite数据库，而是使用流行的<a href="https://realm.io/" target="_blank" rel="noopener">Realm</a>数据库，更加快速、安全。且数据库经过标准的AES256加密。所以每次升级程序前请<strong>务必请手动备份文件！</strong>防止不兼容等问题导致数据遗失！</p>
-<h1 id="功能"><a href="#功能" class="headerlink" title="功能"></a>功能</h1><ul>
-<li><strong>自毁模式</strong>谨慎开启，防止朋友打开你的app乱输入密码导致数据被清空，而你却没有备份！</li>
-<li>明文备份所有数据，可选择任意文件夹存储，单个条目的自定义字段备份的时候是写在note里面的。</li>
-</ul>
-<p>对于自动备份，该版本（v2.0.0）已关闭，下一版本会改进。</p>
+<p>就是可以通过@IntDef和@StringDef创建枚举注解来验证你的代码引用是否正确，编译器自动检查也会对此校验。</p>
+<a id="more"></a>
+<h1 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h1><p>一般我们用静态常量来替代枚举，比如一年四季，一周七天，九大行星，七大洲等这些固定的值：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> SPRING = <span class="number">1</span>;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> SUMMER = <span class="number">2</span>;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> AUTUMN = <span class="number">3</span>;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> WINTER = <span class="number">4</span>;</span><br></pre></td></tr></table></figure>
+<p>但是这样写有些小问题，设置季节的时候可以设置任意int值，导致程序的健壮性不是很好。所以就引出了枚举:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">enum</span> Season &#123;</span><br><span class="line">    SPRING, SUMMER, AUTUMN, WINTER</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这样setSeason()就不会设置成其他值，只能是枚举中的其中一个值。<br>但是各种Android性能优化告诉我们，尽量少用枚举，枚举消耗的内存比定义成常量更多。（其实少用点枚举也没多大关系，只有在内存紧张的时候才会考虑），因此，谷歌就推出了@IntDef和@StringDef注解。</p>
+<p>首先，加入依赖：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">compile &apos;com.android.support:support-annotations:22.0.0&apos;</span><br></pre></td></tr></table></figure>
+<p>然后，定义静态常量：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> SPRING = <span class="number">1</span>;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> SUMMER = <span class="number">2</span>;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> AUTUMN = <span class="number">3</span>;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> WINTER = <span class="number">4</span>;</span><br></pre></td></tr></table></figure>
+<p>为这些常量声明@IntDef：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@IntDef</span>(&#123;SPRING, SUMMER,AUTUMN,WINTER&#125;)</span><br><span class="line"><span class="meta">@Retention</span>(RetentionPolicy.SOURCE)</span><br><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> Season &#123;&#125;</span><br></pre></td></tr></table></figure>
+<p>@Retention是Java里的注解内容，用于指定被修饰的Annotation可以保留多长时间：</p>
 <ul>
-<li>由于软件没有联网功能，我的测试手机有限，所以如果有bug希望将具体操作步骤反馈给我排查改进。</li>
-<li>主页的底部菜单栏在主页向下滑动会自动隐藏，向上滑动一点就会出现</li>
+<li>RetentionPolicy.CLASS  默认值，编译器将把Annotation记录在class文件中。当运行Java程序时，JVM不再保留Annotation。</li>
+<li>RetentionPolicy.RUNTIME  编译器将把Annotation记录在class文件中。当运行Java程序时，JVM也会保留Annotation。程序可以通过反射获取该Annotation信息。</li>
+<li>RetentionPolicy.SOURCE   Annotation只保留在源代码中，编译器直接丢弃这种Annotation。</li>
 </ul>
-<h1 id="支持作者"><a href="#支持作者" class="headerlink" title="支持作者"></a>支持作者</h1><p>如果您觉软件不错的话，希望在应用商店给个五星好评。谢谢。</p>
-<p>有什么建议或者意见，欢迎给我微博留言、私信或者发邮件或者酷安应用下留言。</p>
-<p>微博：<a href="http://weibo.com/shiguiyou" target="_blank" rel="noopener">http://weibo.com/shiguiyou</a></p>
-<p>邮箱：shi_guiyou@163.com</p>
+<p>接下来我们使用的时候：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Season</span> <span class="keyword">int</span> currentDay ;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setCurrentDay</span><span class="params">(@Season <span class="keyword">int</span> currentDay)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.currentDay = currentDay;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="meta">@Season</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getCurrentDay</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> currentDay;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这样就完成了，既不用枚举，常量也不会乱定义的问题。@StringDef用法一样，就是常量定义的是String类型。</p>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><ul>
+<li><a href="https://developer.android.com/studio/write/annotations#enum-annotations" target="_blank" rel="noopener">Improve code inspection with annotations</a></li>
+<li><a href="https://noobcoderblog.wordpress.com/2015/04/12/java-enum-and-android-intdefstringdef-annotation/" target="_blank" rel="noopener">JAVA ENUM AND ANDROID INTDEF/STRINGDEF ANNOTATION</a></li>
+</ul>
 
       
     </div>
@@ -369,7 +379,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/记住密码/" rel="tag"># 记住密码</a>
+            <a href="/tags/Android/" rel="tag"># Android</a>
           
         </div>
       
@@ -382,15 +392,15 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
+              <a href="/2017/09/12/designPattern1Singleton/" rel="next" title="设计模式之单例模式">
+                <i class="fa fa-chevron-left"></i> 设计模式之单例模式
+              </a>
+            
           </div>
 
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/01/01/Android Studio gradle 文件中 supportLibVersion 用法/" rel="prev" title="Android Studio gradle 文件中 supportLibVersion 用法">
-                Android Studio gradle 文件中 supportLibVersion 用法 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -533,7 +543,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#关于安全"><span class="nav-number">1.</span> <span class="nav-text">关于安全</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#功能"><span class="nav-number">2.</span> <span class="nav-text">功能</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#支持作者"><span class="nav-number">3.</span> <span class="nav-text">支持作者</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#定义"><span class="nav-number">1.</span> <span class="nav-text">定义</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#使用"><span class="nav-number">2.</span> <span class="nav-text">使用</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考"><span class="nav-number">3.</span> <span class="nav-text">参考</span></a></li></ol></div>
             
 
           </div>
